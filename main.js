@@ -61,6 +61,7 @@ const time15 = document.getElementById("15min")
 time25.addEventListener("click", () => {
     timmer.textContent = "25:00";
 })
+
 time15.addEventListener("click", () => {
     timmer.textContent = "15:00";
 })
