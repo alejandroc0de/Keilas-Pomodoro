@@ -1,20 +1,17 @@
 const rainSound = new Audio("sounds/rain.mp3")
-rainSound.volume = 0.3
+rainSound.volume = 0.5
 const fireplaceSound = new Audio("sounds/fireplace.mp3")
 const nightSound = new Audio("sounds/night.mp3")
 
 document.getElementById("buttonRain").addEventListener("click", function() {
-    console.log("hellooo")
     rainSound.loop = true;
     rainSound.play()
 })
 document.getElementById("buttonPauseRain").addEventListener("click", function(){
-    console.log("pausee")
     rainSound.pause()
 })
 
 document.getElementById("buttonFireplace").addEventListener("click", function() {
-    console.log("fireplace")
     fireplaceSound.loop = true;
     fireplaceSound.play()
 })
@@ -24,15 +21,17 @@ document.getElementById("buttonPauseFireplace").addEventListener("click", functi
 })
 
 document.getElementById("buttonChillNight").addEventListener("click", function(){
-    console.log("nighttt")
-    nightSound.play()
     nightSound.loop = true
+    nightSound.play()
+
 })
 
 document.getElementById("buttonPauseChillNight").addEventListener("click", function(){
     console.log("pausee")
     nightSound.pause()
 })
+
+// volume logic for the sliders 
 
 let volumeRain = document.getElementById('volume-slider');
 volumeRain.addEventListener("change", function(e) {
@@ -61,6 +60,7 @@ let intervalId = null;
 let seconds; 
 
 
+
 document.getElementById("startPomodoro").addEventListener("click", function(){
     let secondsleft
     if (intervalId!= null){
@@ -69,7 +69,7 @@ document.getElementById("startPomodoro").addEventListener("click", function(){
     intervalId = setInterval(() => {
         secondsRemaining = seconds--
         secondsleft = String(secondsRemaining % 60).padStart(2,"0")
-        minutes = Math.floor(secondsRemaining/60) 
+        minutes = String(Math.floor(secondsRemaining/60)).padStart(2,"0")
         if(seconds<0){
             clearInterval(intervalId)
             intervalId = null
@@ -78,7 +78,6 @@ document.getElementById("startPomodoro").addEventListener("click", function(){
         timmer.textContent = `${minutes}:${(secondsleft)}`    
     }, 1000);
 })
-
 
 document.getElementById("pausePomodoro").addEventListener("click", () => {
     clearInterval(intervalId)
@@ -90,6 +89,10 @@ document.getElementById("resetPomodoro").addEventListener("click", () => {
     seconds = 0
     timmer.textContent = `00:00`
 })
+
+
+
+// logic for time buttons 
 
 time25.addEventListener("click", () => {
     updateTimmer("25:00")
@@ -116,9 +119,6 @@ time45.addEventListener("click", () => {
     intervalId = null
     seconds = 45*60
 })
-
 function updateTimmer (text){
     timmer.textContent = text
 }
-
-
