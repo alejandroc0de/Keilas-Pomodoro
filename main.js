@@ -57,17 +57,68 @@ const time25 = document.getElementById("25min")
 const time45 = document.getElementById("45min")
 const time5 = document.getElementById("5min")
 const time15 = document.getElementById("15min")
+let intervalId = null;
+let seconds; 
+
+
+document.getElementById("startPomodoro").addEventListener("click", function(){
+    let secondsleft
+    if (intervalId!= null){
+        return
+    }
+    intervalId = setInterval(() => {
+        secondsRemaining = seconds--
+        secondsleft = String(secondsRemaining % 60).padStart(2,"0")
+        minutes = Math.floor(secondsRemaining/60) 
+        if(seconds<0){
+            clearInterval(intervalId)
+            intervalId = null
+            return
+        }
+        timmer.textContent = `${minutes}:${(secondsleft)}`    
+    }, 1000);
+})
+
+
+document.getElementById("pausePomodoro").addEventListener("click", () => {
+    clearInterval(intervalId)
+    intervalId = null
+})
+document.getElementById("resetPomodoro").addEventListener("click", () => {
+    clearInterval(intervalId)
+    intervalId = null
+    seconds = 0
+    timmer.textContent = `00:00`
+})
 
 time25.addEventListener("click", () => {
-    timmer.textContent = "25:00";
+    updateTimmer("25:00")
+    clearInterval(intervalId)
+    intervalId = null
+    seconds = (25*60)-1
 })
 
 time15.addEventListener("click", () => {
-    timmer.textContent = "15:00";
+    updateTimmer("15:00")
+    clearInterval(intervalId)
+    intervalId = null
+    seconds = 15*60
 })
 time5.addEventListener("click", () => {
-    timmer.textContent = "05:00";
+    updateTimmer("05:00")
+    clearInterval(intervalId)
+    intervalId = null
+    seconds = 5*60
 })
 time45.addEventListener("click", () => {
-    timmer.textContent = "45:00";
+    updateTimmer("45:00")
+    clearInterval(intervalId)
+    intervalId = null
+    seconds = 45*60
 })
+
+function updateTimmer (text){
+    timmer.textContent = text
+}
+
+
